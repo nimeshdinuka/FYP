@@ -1,0 +1,25 @@
+.abtdiv{
+    margin-top: 20px;
+}
+.toollogo{
+    height: 100%;
+    max-width: 100px;
+    float: left;
+}
+.toolimg{
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
+}
+ion-toolbar{
+    --color : #FFF;
+    ion-title{
+        max-width: 200px;
+        float: left;
+        font-size: 15px;
+    }
+}
+
+// .text-justify{
+//     --ion-font-family: 'KionaRegular' !important;
+// }

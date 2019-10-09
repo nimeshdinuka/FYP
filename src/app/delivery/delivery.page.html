@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="main">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="backToCart()">
+        <ion-icon class="icn" slot="start" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h4><strong>Delivery Details</strong></h4>
+  <ion-grid fixed class="abtdiv">
+    <ion-row>
+        <ion-col class="col">
+            <div class="logindiv">
+                <ion-item>
+                    <ion-label position="stacked">Working Mobile No*</ion-label>
+                    <ion-input name="firstname" placeholder="Enter your Mobile No" [(ngModel)]='deliveryData.workingmobile'></ion-input>
+                </ion-item>
+            </div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col class="col">
+            <div class="logindiv">
+                <ion-item>
+                    <ion-label position="stacked">Delivery Address*</ion-label>
+                    <ion-input name="lastname" placeholder="Enter your Address" [(ngModel)]='deliveryData.address'></ion-input>
+                </ion-item>
+            </div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col class="col">
+            <div class="logindiv">
+                <ion-item>
+                    <ion-label position="stacked">Closest Location*</ion-label>
+                    <ion-input name="email" placeholder="Enter your Email" [(ngModel)]='deliveryData.location'></ion-input>
+                </ion-item>
+            </div>
+        </ion-col>
+    </ion-row>
+
+    <ion-button color="main" class="check" (click)="placeOrder()">PLACE ORDER</ion-button>
+   
+</ion-grid>
+</ion-content>

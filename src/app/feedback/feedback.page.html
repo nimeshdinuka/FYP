@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>feedback</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid fixed class="abtdiv">
+        <ion-row>
+            <ion-col>
+              <ion-list>
+                  <ion-item>
+                      <ion-label>Feedback Data</ion-label>
+                      <ion-select value="Select One" okText="Okay" cancelText="Dismiss" [(ngModel)]='feedbackData.category' >
+                        <ion-select-option value="restaurant">Restaurant</ion-select-option>
+                        <ion-select-option value="service">Service</ion-select-option>
+                        <ion-select-option value="food">Food</ion-select-option>
+                        <ion-select-option value="environment">Environment</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  
+              </ion-list>
+            </ion-col>
+          </ion-row>
+        <ion-row>
+            <ion-col class="col">
+                <div class="logindiv">
+                    <ion-item>
+                        <ion-label position="stacked">Comment*</ion-label>
+                        <ion-input name="firstname" placeholder="Give us your Feedback" [(ngModel)]='feedbackData.comment'></ion-input>
+                    </ion-item>
+                </div>
+            </ion-col>
+        </ion-row>
+  
+        <ion-row class="ezfoodlog">
+            <ion-col class="col">
+                <div class="d-flex justify-content-center ">
+                    <ion-button color="success" (click)='submitFeedback()'>
+                        <ion-icon slot="start" name="beer"></ion-icon>
+                        Submit
+                    </ion-button>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-content>

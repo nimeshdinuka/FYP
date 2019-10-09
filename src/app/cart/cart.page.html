@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="main">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="loadMenu()">
+        <ion-icon class="icn" slot="start" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngFor="let item of selectedItems" >
+    <ion-card  >
+        <ion-card-header>
+          <ion-card-title>{{item.foodname}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <h3>Rs: {{item.foodprice}} x {{item.count}}</h3>
+          <ion-button size="small" color="main" class="qtybtns" (click)="decrease(item)">
+              <ion-icon name="arrow-dropleft-circle"></ion-icon>
+          </ion-button>
+          <h4></h4>
+          <ion-button size="small" color="main" class="qtybtns" (click)="increase(item)">
+              <ion-icon name="arrow-dropright-circle"></ion-icon>
+          </ion-button>
+          <ion-button size="small" class="qtybtns closebtn" color="danger" (click) = "removeItem(item)">
+              <ion-icon  slot="icon-only" name="remove-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <h2 class="totalcls">Total:</h2><h2 class="total">Rs: {{total}}</h2> 
+  <ion-button color="main" class="check" (click)="loadPage()">Checkout</ion-button>
+</ion-content>

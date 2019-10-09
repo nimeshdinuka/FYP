@@ -1,0 +1,47 @@
+.icn {
+    width: 30px;
+    height: 30px;
+}
+
+.check{
+  position: fixed;
+    left: 0;
+    bottom: 10px;
+    right: 0;
+    height: 50px;
+}
+
+.qtybtns{
+  --border-radius:50px;
+  float: left;
+  
+}
+
+ion-item{
+  font-weight: bold;
+  font-size: 15px;
+}
+
+ion-card{
+  width: 90%;
+  margin: auto;
+  border-top: 3px solid blue;
+}
+
+ion-card-content{
+  padding: 10px;
+  padding-top: 0;
+}
+
+ion-card-header{
+  padding: 10px;
+}
+
+h4,h3{
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.abtdiv{
+  margin-top: 20px;
+}

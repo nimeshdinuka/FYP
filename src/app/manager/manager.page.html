@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="main">
+    <ion-buttons slot="end">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      MANAGER
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button color="main" (click)='loadAddCashier()' class="d-flex flex-wrap align-content-center" >
+          Add Cashiers
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="main" (click)='loadCashiers()' class="d-flex flex-wrap align-content-center">
+          View Cashiers
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button color="main" (click)='loadAddFood()' class="d-flex flex-wrap align-content-center" >
+          Add items
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="main"  (click)='loadFood()' class="d-flex flex-wrap align-content-center">
+          View items
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button color="main" (click)='loadAddOffer()' class="d-flex flex-wrap align-content-center" >
+          Add offers
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="main" (click)='loadOffer()' class="d-flex flex-wrap align-content-center">
+          View offers
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,24 @@
+ion-toolbar{
+    --color: #fff;
+      ion-title{
+          max-width: 200px;
+          float: left;
+          font-size: 15px;
+      }
+  }
+  
+  .icn {
+      width: 30px;
+      height: 30px;
+  }
+  
+  ion-input{
+      padding-top: 0;
+      padding-bottom: 0;
+  }
+  
+  ion-label{
+      font-size: 18px;
+      font-weight: bold;
+  }
+  

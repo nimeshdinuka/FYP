@@ -1,0 +1,29 @@
+ion-split-pane {
+    --border: none !important;
+    ion-menu {
+      --background: var(--ion-color-main) !important;
+      ion-toolbar,
+      ion-title {
+        --background: var(--ion-color-main) !important;
+        --color: #ffffff !important;
+        font-weight:bold;
+      }
+      ion-content {
+        --background: var(--ion-color-main) !important;
+        ion-list-header {
+          --background: var(--ion-color-main) !important;
+          --color: #ffffff !important;
+        }
+        ion-item {
+          --background: var(--ion-color-main) !important;
+          --color: #ffffff !important;
+          ion-icon {
+            padding-right: 10px !important;
+          }
+          ion-label{
+              font-weight: bold;
+          }
+        }
+      }
+    }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ezfood",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

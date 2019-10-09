@@ -1,0 +1,19 @@
+ion-toolbar{
+  --color: #fff;
+    ion-title{
+        max-width: 200px;
+        float: left;
+        font-size:15px;
+    }
+}
+
+ion-grid {
+    margin-top: 50px;
+}
+
+ion-button{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 10px rgba(0,0,0,0.23);
+    height: 50px;
+    width: 90%;
+    margin: auto;
+}

@@ -1,0 +1,40 @@
+.fooddiv{
+  width: 100%;
+  margin-top: 50px;
+}
+
+.topimg{
+  max-height: 120px;
+  width: 100%;
+}
+
+.imgdiv{
+  //height: 150px;
+  max-height: 170px;
+  width: 100%;
+}
+
+.divv{
+  width: 100%;
+  height: 100%;
+  
+}
+
+.btnlist{
+  --color: #fff;
+  height: 60px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+ion-button{
+  --color:#FFF;
+}
+.slidegrid{
+  margin-top: 30px;
+}
+
+ion-content{
+  --background: url(../../assets/images/homewall.jpg) no-repeat center center / cover;
+  --color : #FFF;
+}

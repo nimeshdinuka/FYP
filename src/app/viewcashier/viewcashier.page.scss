@@ -1,0 +1,19 @@
+ion-toolbar{
+  --color: #fff;
+    ion-title{
+        max-width: 200px;
+        float: left;
+        font-size:15px;
+    }
+}
+
+.icn {
+    width: 35px;
+    height: 35px;
+}
+
+ion-card{
+    width:90%;
+    margin:auto;
+    border-top: 3px solid blue;
+}

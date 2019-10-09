@@ -1,0 +1,33 @@
+.toollogo{
+    height: 100%;
+    max-width: 100px;
+    float: left;
+}
+
+.toolimg{
+    width: 100%;
+    max-width: 100px;
+    border-radius: 10px;
+}
+
+.abtdiv{
+    margin-top: 20px;
+}
+
+h4{
+    margin-top: 0;
+}
+
+h6{
+    margin: 0;
+}
+
+ion-toolbar{
+    --color : #FFF;
+    ion-title{
+        max-width: 200px;
+        float: left;
+        font-size: 14px;
+    }
+}
+

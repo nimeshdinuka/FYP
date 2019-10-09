@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="main">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="loadMenu()">
+        <ion-icon class="icn" slot="start" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button (click)="selectImage()">
+    Pick Image to Crop
+  </ion-button>
+ 
+  <h5 *ngIf="croppedImagepath.length">Cropped Image</h5>
+ 
+  <p *ngIf="isLoading">Loading ...</p>
+ 
+  <img [src]="croppedImagepath" />
+</ion-content>

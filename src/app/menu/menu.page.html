@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="main">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="loadRestaurants()">
+        <ion-icon class="icn" slot="start" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button  slot="end" (click)="loadCart()">
+        <ion-badge color="secondcolor" *ngIf="cart.length > 0">{{cart.length}}</ion-badge>
+        <ion-icon  name="cart" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-slides [options]="sliderConfig">
+      <ion-slide *ngFor="let item of items">
+        <ion-card (click)="addToCart(item)">
+          <ion-card-header>
+            <ion-card-title>{{item.foodname}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <img src="{{item.foodpic}}" />
+            <p>Rs: {{item.foodprice}}</p>
+            <p>{{item.description}}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+</ion-content>
