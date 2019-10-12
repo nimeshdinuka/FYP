@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2019 at 02:54 AM
+-- Generation Time: Oct 12, 2019 at 06:57 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -37,6 +37,26 @@ CREATE TABLE `cart` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `feedbacks`
+--
+
+CREATE TABLE `feedbacks` (
+  `feedbackid` int(11) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `datetime` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`feedbackid`, `category`, `comment`, `datetime`) VALUES
+(1, 'environment', 'sasas', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fooditem`
 --
 
@@ -61,7 +81,46 @@ INSERT INTO `fooditem` (`itemid`, `shopid`, `itemname`, `description`, `price`, 
 (5, 2, 'vegy submarine', 'sub full of vegetables', 360, ''),
 (6, 2, 'qqq', 'qqq', 111, ''),
 (7, 2, 'www', 'www', 222, ''),
-(8, 2, 'eee', 'eee', 333, '');
+(8, 2, 'eee', 'eee', 333, ''),
+(9, 1, 'qqq', 'www', 111, 'aaa'),
+(10, 1, 'pppp', 'pppp', 0, 'data:image/jpeg;base64,content://com.android.providers.media.documents/document/image%3A910'),
+(11, 1, 'jjjj', 'jjjjj', 777, 'data:image/jpeg;base64,content://com.android.providers.media.documents/document/image%3A910');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `foodorder`
+--
+
+CREATE TABLE `foodorder` (
+  `orderid` int(11) NOT NULL,
+  `customerusername` varchar(50) NOT NULL,
+  `shopid` int(11) NOT NULL,
+  `datetime` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `foodorder`
+--
+
+INSERT INTO `foodorder` (`orderid`, `customerusername`, `shopid`, `datetime`) VALUES
+(1, 'Nimesh', 1, NULL),
+(2, 'Nimesh', 1, NULL),
+(3, 'Nimesh', 1, NULL),
+(4, 'Nimesh', 1, NULL),
+(5, 'Nimesh', 1, NULL),
+(6, 'Nimesh', 1, NULL),
+(7, 'Nimesh', 1, NULL),
+(8, 'Nimesh', 1, NULL),
+(9, 'Nimesh', 1, NULL),
+(10, 'Nimesh', 1, NULL),
+(11, 'Nimesh', 1, NULL),
+(12, 'Nimesh', 1, NULL),
+(13, 'Nimesh', 1, NULL),
+(14, 'Nimesh', 1, NULL),
+(15, 'Nimesh', 1, NULL),
+(16, 'Nimesh', 2, NULL),
+(17, 'Nimesh', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -93,16 +152,10 @@ INSERT INTO `offers` (`offerid`, `title`, `description`, `offerpic`, `shopid`) V
 --
 
 CREATE TABLE `orderdata` (
-  `orderid` int(10) NOT NULL,
-  `itemid` varchar(255) NOT NULL
+  `orderid` int(100) NOT NULL,
+  `foodname` varchar(255) NOT NULL,
+  `quantity` int(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orderdata`
---
-
-INSERT INTO `orderdata` (`orderid`, `itemid`) VALUES
-(2, '[1,2]');
 
 -- --------------------------------------------------------
 
@@ -127,7 +180,7 @@ CREATE TABLE `shops` (
   `shopid` int(10) NOT NULL,
   `shopname` varchar(20) NOT NULL,
   `description` varchar(50) NOT NULL,
-  `shoppic` varchar(1000) NOT NULL
+  `shoppic` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -136,7 +189,8 @@ CREATE TABLE `shops` (
 
 INSERT INTO `shops` (`shopid`, `shopname`, `description`, `shoppic`) VALUES
 (1, 'Burger King', ' Lorem ipsum dolor sit amet, consectetur adipiscin', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9S2YLf04i9ScZF4QwCVI6TzFyt1SdyAYA4O65RyZS0IvYxEOY0w'),
-(2, 'Dinemore', 'Its all about Sub', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD9o6JfF0mSbPHuPXgfmxwSuRNEA98j2aalVGOAfkHx9SRWOYW');
+(2, 'Dinemore', 'Its all about Sub', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD9o6JfF0mSbPHuPXgfmxwSuRNEA98j2aalVGOAfkHx9SRWOYW'),
+(3, 'Pizza Hut', 'loremasiaisaisjasaosa', NULL);
 
 -- --------------------------------------------------------
 
@@ -182,11 +236,23 @@ ALTER TABLE `cart`
   ADD PRIMARY KEY (`orderid`);
 
 --
+-- Indexes for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  ADD PRIMARY KEY (`feedbackid`);
+
+--
 -- Indexes for table `fooditem`
 --
 ALTER TABLE `fooditem`
   ADD PRIMARY KEY (`itemid`),
   ADD KEY `fooditem_ibfk_1` (`shopid`);
+
+--
+-- Indexes for table `foodorder`
+--
+ALTER TABLE `foodorder`
+  ADD PRIMARY KEY (`orderid`);
 
 --
 -- Indexes for table `offers`
@@ -229,22 +295,28 @@ ALTER TABLE `cart`
   MODIFY `orderid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  MODIFY `feedbackid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `fooditem`
 --
 ALTER TABLE `fooditem`
-  MODIFY `itemid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `itemid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `foodorder`
+--
+ALTER TABLE `foodorder`
+  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
   MODIFY `offerid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `orderdata`
---
-ALTER TABLE `orderdata`
-  MODIFY `orderid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -256,7 +328,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `shops`
 --
 ALTER TABLE `shops`
-  MODIFY `shopid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `shopid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
