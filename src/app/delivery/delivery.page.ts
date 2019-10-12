@@ -11,9 +11,10 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class DeliveryPage implements OnInit {
 
+  
   createSuccess = false;
   cart = [];
-  deliveryData = { workingmobile: '', address: '', location: '',cart:this.cart,userid:''};
+  deliveryData = { workingmobile: '', address: '', location: '',shopid:'' ,userid:'', cart:this.cart,lastid:0};
   userid;
   constructor(public nav:NavController, public auth: UserService,private alertCtrl: AlertController) {
     this.userid = this.auth.getUser();
@@ -24,8 +25,10 @@ export class DeliveryPage implements OnInit {
   ngOnInit() {
     this.cart = this.auth.getSelectedCart();
     console.log(this.cart);
+    this.deliveryData.shopid = this.cart[0].foodshop;
     this.deliveryData.cart = this.cart;
     this.deliveryData.userid = this.userid;
+    console.log(this.deliveryData);
   }
 
   public placeOrder() {
@@ -34,6 +37,28 @@ export class DeliveryPage implements OnInit {
       if (success) {
         this.createSuccess = true;
         this.showPopup('Success', 'Order Placed.');
+        var convertedSuccess = success.toString();
+        this.deliveryData.lastid = parseInt(convertedSuccess);
+        console.log(success);
+        console.log(this.deliveryData.lastid);
+        console.log(this.deliveryData.cart);
+
+        if (this.deliveryData.workingmobile !== '' && this.deliveryData.address !== '' && this.deliveryData.location !== '') {
+          this.auth.placeOrderDetails(this.deliveryData).subscribe(data => {
+            console.log(this.deliveryData.cart);
+            if (data) {
+              this.createSuccess = true;
+              console.log(this.deliveryData.cart);
+            } else {
+              console.log(this.deliveryData.cart);
+            }
+          },
+            error => {
+              console.log(this.deliveryData.cart);
+            });
+          } else {
+            console.log(this.deliveryData.cart);
+          }
       } else {
         this.showPopup('Error', 'Problem placing Order');
       }
@@ -44,6 +69,8 @@ export class DeliveryPage implements OnInit {
     } else {
       this.showPopup('Error', 'Please Fill All Details.');
     }
+
+
   }
 
   backToCart(){

@@ -20,6 +20,7 @@ export class FeedbackPage implements OnInit {
   }
 
   public submitFeedback() {
+    console.log(this.feedbackData);
     if (this.feedbackData.category !== '' && this.feedbackData.comment !== '' ) {
     this.auth.submitFeedback(this.feedbackData).subscribe(success => {
       if (success) {

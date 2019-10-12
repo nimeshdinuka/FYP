@@ -100,6 +100,10 @@ export class CartPage implements OnInit {
       console.log(data.count);
       console.log(this.selectedItems);
       console.log(this.items);
+      if(this.selectedItems.length == 0){
+        this.auth.setcurrentShopId(null);
+        console.log(this.auth.getcurrentShopId());
+      }
     }
     for( var i = 0; i < this.items.length; i++){ 
       if ( this.items[i].foodid === data.foodid) {

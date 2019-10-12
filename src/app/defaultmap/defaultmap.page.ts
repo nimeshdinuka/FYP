@@ -18,7 +18,7 @@ export class DefaultmapPage implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     this.map = new google.maps.Map (
       this.mapElement.nativeElement,{
-        center :{lat: 6.795125, lng:79.887569},
+        center :{lat: 6.795658, lng: 79.887643},
         zoom: 15
       }
       

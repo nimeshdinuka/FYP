@@ -25,7 +25,6 @@ export class GeolocationPage implements OnInit ,AfterContentInit {
       console.log(this.longitude);
 
       const map = new google.maps.Map (this.mapNativeElement.nativeElement, {
-        center :{lat: -34.397, lng: 150.644},
           zoom: 15
       });
 

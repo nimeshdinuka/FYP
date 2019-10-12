@@ -24,6 +24,7 @@ export class MenuPage implements OnInit {
     
     this.initializeItems();
     this.cart = this.auth.getCart();
+    console.log(this.auth.getcurrentShopId());
   }
 
   ngOnInit() {
@@ -69,8 +70,20 @@ export class MenuPage implements OnInit {
   }
 
   addToCart(tempdata){
-    console.log(tempdata);
-    this.auth.addCart(tempdata);
-    console.log(this.auth.getCart());
+    if(this.auth.getcurrentShopId()== null){
+      this.auth.addCart(tempdata);
+      this.auth.setcurrentShopId (tempdata.foodshop); 
+      console.log(this.auth.getCart());
+    }else{
+      if(this.auth.getcurrentShopId()== tempdata.foodshop){
+        this.auth.addCart(tempdata);
+        console.log(this.auth.getCart());
+      }else{
+        console.log("You are limited to only 1 shop.")
+      }
+    }
+    // console.log(tempdata);
+    // this.auth.addCart(tempdata);
+    // console.log(this.auth.getCart());
   }
 }

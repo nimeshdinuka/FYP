@@ -321,12 +321,103 @@ def viewShops():
 def placeOrder():
     if request.method == 'POST':
         itemDetails = request.get_json(silent=True)
-        cartdata = itemDetails['cart']
         userid = itemDetails['userid']
-        datetime = datetime.now()
+        shopid = itemDetails['shopid']
+        print(userid)
+        print(shopid)
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO foodorder(customerusername,shopid) VALUES(%s,%s)",(userid,shopid))
+        data = cur.lastrowid
+        mysql.connection.commit()
+        cur.close()
+        
+        return jsonify(data)
+
+@app.route('/placeOrderDetails',methods=['POST'])
+@cross_origin(supports_credentials=True)
+def placeOrderDetails():
+    if request.method == 'POST':
+        itemDetails = request.get_json(silent=True)
+        lastid = itemDetails['orderid']
+        cartitems = itemDetails['cart']
+        list = [] 
+
+        cur = mysql.connection.cursor()
+        sql =("INSERT INTO orderdata(orderid,foodname) VALUES(%s.%s)")
+
+        for x in cartitems: 
+            y = (lastid, cartitems[x].foodname) 
+            list.append(y) 
+        
+        cur.executemany(sql,list)
+        mysql.connection.commit()
+        cur.close()
+        print(cur.rowcount, "was inserted.")
+        return jsonify("success")
+
+@app.route('/submitFeedback',methods=['POST'])
+@cross_origin(supports_credentials=True)
+def submitFeedback():
+    if request.method == 'POST':
+        itemDetails = request.get_json(silent=True)
+        category = itemDetails['category']
+        comment = itemDetails['comment']
         
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO foodorder(customerid,shopid,datetime) VALUES(%s,%s)",(userid,cartdata.foodshop,datetime))
+        cur.execute("INSERT INTO feedbacks(category,comment) VALUES(%s,%s)",(category,comment))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify("success")
+
+@app.route('/resetPassword',methods=['POST'])
+@cross_origin(supports_credentials=True)
+def resetPassword():
+    if request.method == 'POST':
+        userDetails = request.get_json(silent=True)
+        uname = userDetails['username']
+        pswd = userDetails['password']
+
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE user SET password=%s WHERE username=%s",(pswd,uname))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify("success")
+
+@app.route('/removeShops',methods=['POST'])
+@cross_origin(supports_credentials=True)
+def removeShops():
+    if request.method == 'POST':
+        userDetails = request.get_json(silent=True)
+        shopid = userDetails['shopid']
+
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE from shops WHERE id=%s",(shopid))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify("success")
+
+@app.route('/removeFood',methods=['POST'])
+@cross_origin(supports_credentials=True)
+def removeFood():
+    if request.method == 'POST':
+        userDetails = request.get_json(silent=True)
+        foodid = userDetails['foodid']
+
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE from fooditems WHERE id=%s",(foodid))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify("success")
+
+@app.route('/removeOffer',methods=['POST'])
+@cross_origin(supports_credentials=True)
+def removeOffer():
+    if request.method == 'POST':
+        userDetails = request.get_json(silent=True)
+        offerid = userDetails['offerid']
+
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE from offers WHERE id=%s",(offerid))
         mysql.connection.commit()
         cur.close()
         return jsonify("success")

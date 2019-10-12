@@ -66,6 +66,16 @@ export class AppComponent {
       title: 'base64 test',
       url: '/test3',
 
+    },
+    {
+      title: 'def map',
+      url: '/defaultmap',
+
+    },
+    {
+      title: 'geoloc',
+      url: '/geolocation',
+
     }
   ];
 

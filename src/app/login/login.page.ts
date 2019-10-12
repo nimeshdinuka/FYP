@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { UserService } from '../api/user.service';
 import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,16 @@ export class LoginPage implements OnInit {
   loginSuccess = false;
   loginCredentials = { username: '', password: '' };
   username;
+  sessionUser:string;
+  savedUser;
   
-  constructor(private alertCtrl: AlertController, private auth: UserService, private nav: NavController ,public toastController: ToastController) { }
+  constructor(private storage: Storage,private alertCtrl: AlertController, private auth: UserService, private nav: NavController ,public toastController: ToastController) {
+
+    storage.get(this.sessionUser).then((val) => {
+      console.log('Your age is', val);
+      this.sessionPass();
+    });
+   }
 
   async presentToast(msg) {
     const toast = await this.toastController.create({
@@ -28,6 +37,10 @@ export class LoginPage implements OnInit {
     console.log(this.auth.getUser());
   }
 
+  public sessionPass(){
+    this.nav.navigateForward('restaurants');
+  }
+
   public login() {
     if (this.loginCredentials.username !== '' && this.loginCredentials.password !== '') {
       this.auth.login(this.loginCredentials).subscribe(success => {
@@ -35,15 +48,19 @@ export class LoginPage implements OnInit {
           console.log(success);
           if(success[0][7] == 'customer'){
             this.presentToast('Login Successful');
-            this.auth.setUser(success[0][1]);
+            this.auth.setUser(success[0][2]);
+            this.storage.set(this.sessionUser, success[0][3]);
             this.nav.navigateRoot('restaurants');
+            
           }else if(success[0][7] == 'manager'){
             this.presentToast('Login Successful');
             this.auth.setShop(success[0][8]);
-            this.auth.setUser(success[0][1]);
+            this.auth.setUser(success[0][2]);
+            this.storage.set(this.sessionUser, success[0][3]);
             this.nav.navigateRoot('manager');
           }else if(success[0][7] == 'admin'){
             this.presentToast('Login Successful');
+            this.storage.set(this.sessionUser, success[0][3]);
             this.nav.navigateRoot('admin');
           }
           // this.loginSuccess = true;

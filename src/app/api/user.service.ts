@@ -15,6 +15,7 @@ export class UserService {
   userName: string;
   shopId: number;
   selectedCartitems = [];
+  currentShopId:number;
 
   constructor(public http: HttpClient) { }
 
@@ -24,6 +25,14 @@ export class UserService {
 
   public getSelectedCart(){
     return this.selectedCartitems;
+  }
+
+  public setcurrentShopId(currentShopId) {
+    this.currentShopId = currentShopId;
+  }
+
+  public getcurrentShopId() {
+    return this.currentShopId;
   }
 
   public setUser(username) {
@@ -255,8 +264,22 @@ export class UserService {
     return this.http.post('http://192.168.8.100:5000/placeOrder',
       (
         {
-          'cartdata': credentials.cart,
-          'userid': credentials.userid
+          'userid': credentials.userid,
+          'shopid': credentials.shopid
+          
+        }
+      ), { headers: this.headers }).pipe(map(res => res));
+  }
+
+   // add order
+   public placeOrderDetails(credentials) {
+    console.log(credentials.cart);
+    return this.http.post('http://192.168.8.100:5000/placeOrderDetails',
+      (
+        {
+          'orderid': credentials.lastid,
+          'cart': credentials.cart
+          
         }
       ), { headers: this.headers }).pipe(map(res => res));
   }
@@ -268,6 +291,43 @@ export class UserService {
         {
           'category': credentials.category,
           'comment': credentials.comment,
+        }
+      ), { headers: this.headers }).pipe(map(res => res));
+  }
+
+  public removeOffer(credentials) {
+    return this.http.post('http://192.168.8.100:5000/removeOffer',
+      (
+        {
+          'offerid': credentials.offerid
+        }
+      ), { headers: this.headers }).pipe(map(res => res));
+  }
+
+  public removeFood(credentials) {
+    return this.http.post('http://192.168.8.100:5000/removeFood',
+      (
+        {
+          'foodid': credentials.foodid
+        }
+      ), { headers: this.headers }).pipe(map(res => res));
+  }
+
+  public removeShops(credentials) {
+    return this.http.post('http://192.168.8.100:5000/removeShops',
+      (
+        {
+          'shopid': credentials.shopid
+        }
+      ), { headers: this.headers }).pipe(map(res => res));
+  }
+
+  public resetPassword(credentials) {
+    return this.http.post('http://192.168.8.100:5000/resetPassword',
+      (
+        {
+          'username': credentials.username,
+          'password': credentials.password
         }
       ), { headers: this.headers }).pipe(map(res => res));
   }
