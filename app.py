@@ -340,16 +340,21 @@ def placeOrderDetails():
         itemDetails = request.get_json(silent=True)
         lastid = itemDetails['orderid']
         cartitems = itemDetails['cart']
+        qty = itemDetails['qty']
+
+        zipobj = zip(cartitems, qty)
+        datadict = dict(zipobj)
         list = [] 
 
         cur = mysql.connection.cursor()
-        sql ="INSERT INTO orderdata(orderid,foodname) VALUES(%s,%s)"
+        sql ="INSERT INTO orderdata(orderid,foodname,quantity) VALUES(%s,%s,%s)"
 
-        for x in cartitems: 
-            y = (lastid, x) 
+        for x,z in datadict.items():
+            y = (lastid, x,z) 
             list.append(y) 
-            print(list)
-            print(cartitems)
+        print(list)
+        print(cartitems)
+        print(qty)
         cur.executemany(sql,list)
         mysql.connection.commit()
         cur.close()

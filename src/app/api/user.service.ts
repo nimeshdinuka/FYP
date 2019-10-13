@@ -260,7 +260,6 @@ export class UserService {
 
  // add order
   public placeOrder(credentials) {
-    console.log(credentials.cart);
     return this.http.post('http://192.168.8.101:5000/placeOrder',
       (
         {
@@ -275,11 +274,13 @@ export class UserService {
    public placeOrderDetails(credentials) {
     console.log(credentials.cart);
     console.log(credentials.lastid);
+    console.log(credentials.qty);
     return this.http.post('http://192.168.8.101:5000/placeOrderDetails',
       (
         {
           'orderid': credentials.lastid,
-          'cart': credentials.cart
+          'cart': credentials.cart,
+          'qty':credentials.qty
           
         }
       ), { headers: this.headers }).pipe(map(res => res));

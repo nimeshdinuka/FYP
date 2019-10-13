@@ -15,7 +15,8 @@ export class DeliveryPage implements OnInit {
   createSuccess = false;
   cart = [];
   cartFoods=[];
-  deliveryData = { workingmobile: '', address: '', location: '',shopid:'' ,userid:'', cart:this.cartFoods,lastid:0};
+  foodqty =[];
+  deliveryData = { workingmobile: '', address: '', location: '',shopid:'' ,userid:'', cart:this.cartFoods,lastid:0,qty:this.foodqty};
   userid;
   
 
@@ -30,6 +31,7 @@ export class DeliveryPage implements OnInit {
     console.log(this.cart);
     this.deliveryData.shopid = this.cart[0].foodshop;
     this.deliveryData.cart = this.cartFoods;
+    this.deliveryData.qty = this.foodqty;
     this.deliveryData.userid = this.userid;
     console.log(this.deliveryData);
   }
@@ -40,6 +42,7 @@ export class DeliveryPage implements OnInit {
       if (success) {
         this.createSuccess = true;
         this.cartFoodItems();
+        this.cartfoodQty();
         this.showPopup('Success', 'Order Placed.');
         var convertedSuccess = success.toString();
         this.deliveryData.lastid = parseInt(convertedSuccess);
@@ -81,6 +84,12 @@ export class DeliveryPage implements OnInit {
     for( var i = 0; i < this.cart.length; i++){ 
         this.cartFoods.push(this.cart[i].foodname)
         console.log(this.cartFoods);
+      }
+  }
+  cartfoodQty(){
+    for( var i = 0; i < this.cart.length; i++){ 
+        this.foodqty.push(this.cart[i].count)
+        console.log(this.foodqty);
       }
   }
 
