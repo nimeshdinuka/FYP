@@ -14,8 +14,11 @@ export class DeliveryPage implements OnInit {
   
   createSuccess = false;
   cart = [];
-  deliveryData = { workingmobile: '', address: '', location: '',shopid:'' ,userid:'', cart:this.cart,lastid:0};
+  cartFoods=[];
+  deliveryData = { workingmobile: '', address: '', location: '',shopid:'' ,userid:'', cart:this.cartFoods,lastid:0};
   userid;
+  
+
   constructor(public nav:NavController, public auth: UserService,private alertCtrl: AlertController) {
     this.userid = this.auth.getUser();
     console.log(this.userid);
@@ -26,7 +29,7 @@ export class DeliveryPage implements OnInit {
     this.cart = this.auth.getSelectedCart();
     console.log(this.cart);
     this.deliveryData.shopid = this.cart[0].foodshop;
-    this.deliveryData.cart = this.cart;
+    this.deliveryData.cart = this.cartFoods;
     this.deliveryData.userid = this.userid;
     console.log(this.deliveryData);
   }
@@ -36,12 +39,14 @@ export class DeliveryPage implements OnInit {
     this.auth.placeOrder(this.deliveryData).subscribe(success => {
       if (success) {
         this.createSuccess = true;
+        this.cartFoodItems();
         this.showPopup('Success', 'Order Placed.');
         var convertedSuccess = success.toString();
         this.deliveryData.lastid = parseInt(convertedSuccess);
         console.log(success);
         console.log(this.deliveryData.lastid);
         console.log(this.deliveryData.cart);
+
 
         if (this.deliveryData.workingmobile !== '' && this.deliveryData.address !== '' && this.deliveryData.location !== '') {
           this.auth.placeOrderDetails(this.deliveryData).subscribe(data => {
@@ -70,7 +75,13 @@ export class DeliveryPage implements OnInit {
       this.showPopup('Error', 'Please Fill All Details.');
     }
 
+  }
 
+  cartFoodItems(){
+    for( var i = 0; i < this.cart.length; i++){ 
+        this.cartFoods.push(this.cart[i].foodname)
+        console.log(this.cartFoods);
+      }
   }
 
   backToCart(){

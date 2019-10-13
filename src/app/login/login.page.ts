@@ -20,8 +20,11 @@ export class LoginPage implements OnInit {
   constructor(private storage: Storage,private alertCtrl: AlertController, private auth: UserService, private nav: NavController ,public toastController: ToastController) {
 
     storage.get(this.sessionUser).then((val) => {
-      console.log('Your age is', val);
-      this.sessionPass();
+      console.log('Logged in User : ', val);
+      if(val != null){
+        this.sessionPass();
+      }
+      
     });
    }
 

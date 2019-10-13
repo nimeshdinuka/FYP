@@ -4,7 +4,11 @@
       <div> {{userName}}</div>
     </ion-title>
     <ion-buttons slot="end">
+        <ion-button (click)="logout()">
+            <ion-icon name="log-out"></ion-icon>
+          </ion-button>
       <ion-menu-button color="light"></ion-menu-button>
+      
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { AlertController,NavController } from '@ionic/angular';
 import { UserService } from '../api/user.service';
 import { LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-restaurants',
@@ -12,8 +13,8 @@ export class RestaurantsPage implements OnInit{
 
   userName;
   items= [];
-  
-  constructor(private alertCtrl: AlertController, private auth: UserService, private nav: NavController,public loadingController: LoadingController) { 
+  sessionUser:string;
+  constructor(private storage:Storage,private alertCtrl: AlertController, private auth: UserService, private nav: NavController,public loadingController: LoadingController) { 
     this.userName = this.auth.getUser();
     console.log(this.auth.getUser());
     this.initializeItems();
@@ -44,6 +45,13 @@ export class RestaurantsPage implements OnInit{
     console.log(shopid);
     this.auth.setShop(shopid);
     this.nav.navigateForward('menu');
+  }
+
+  logout(){
+    this.storage.set(this.sessionUser,null);
+    this.auth.setUser(null);
+    console.log(this.storage.get(this.sessionUser));
+    this.nav.navigateForward('login');
   }
 }
 

@@ -11,6 +11,7 @@ import { LoadingController } from '@ionic/angular';
 export class MenuPage implements OnInit {
 
   items = [];
+  products=[];
   cart:any = [];
   createSuccess = false;
 
@@ -42,6 +43,7 @@ export class MenuPage implements OnInit {
             foodshop:food[i][1]
           }
           this.items.push(foodObj);
+          this.products.push(foodObj);
           console.log(this.items);
       }
      },
@@ -82,8 +84,28 @@ export class MenuPage implements OnInit {
         console.log("You are limited to only 1 shop.")
       }
     }
-    // console.log(tempdata);
-    // this.auth.addCart(tempdata);
-    // console.log(this.auth.getCart());
+  }
+
+  initializeSearch(){
+    this.items=this.products;
+  }
+
+  getProductDetails(ev: any) {
+    // Reset items back to all of the items
+    this.initializeSearch();
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        if(item.foodname.toLowerCase().indexOf(val.toLowerCase()) > -1){
+          console.log(this.items);
+          return item;
+        };
+      });
+    }
+    return false;
   }
 }

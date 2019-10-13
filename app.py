@@ -343,12 +343,13 @@ def placeOrderDetails():
         list = [] 
 
         cur = mysql.connection.cursor()
-        sql =("INSERT INTO orderdata(orderid,foodname) VALUES(%s.%s)")
+        sql ="INSERT INTO orderdata(orderid,foodname) VALUES(%s,%s)"
 
         for x in cartitems: 
-            y = (lastid, cartitems[x].foodname) 
+            y = (lastid, x) 
             list.append(y) 
-        
+            print(list)
+            print(cartitems)
         cur.executemany(sql,list)
         mysql.connection.commit()
         cur.close()
