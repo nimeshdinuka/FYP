@@ -101,9 +101,10 @@ def addRestaurant():
         userDetails = request.get_json(silent=True)
         shopname = userDetails['shopname']
         description = userDetails['description']
+        shoppic = userDetails['shoppic']
         
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO shops(shopname,description) VALUES(%s,%s)",(shopname,description))
+        cur.execute("INSERT INTO shops(shopname,description,shoppic) VALUES(%s,%s,%s)",(shopname,description,shoppic))
         mysql.connection.commit()
         cur.close()
         return jsonify("success")
@@ -427,6 +428,25 @@ def removeOffer():
         mysql.connection.commit()
         cur.close()
         return jsonify("success")
+
+@app.route('/getUserType',methods=['GET','POST'])
+@cross_origin(supports_credentials=True)
+def getUserType():
+    if request.method == 'POST':
+        userDetails = request.get_json(silent=True)
+        uname = userDetails['username']
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from user where firstname = %s ",[uname])
+        data = cur.fetchall()
+        mysql.connection.commit()
+        cur.close()
+        
+        if(len(data)!=0):
+                #print (data)
+                return jsonify(data)
+        else:
+                return jsonify('error')
 
 #flask run --host=192.168.8.100 port=5000
 

@@ -10,7 +10,7 @@ import { UserService } from '../api/user.service';
 })
 export class AddshopsPage implements OnInit {
 
-  addShopCredentials = { shopname: '', description: ''};
+  addShopCredentials = { shopname: '', description: '',shoppic:'https://chinesenewyear.imgix.net/assets/images/food/chinese-new-year-food-feast.jpg?q=50&w=1920&h=1080&fit=crop&auto=format'};
   createSuccess = false;
 
   constructor(private alertCtrl: AlertController, private auth: UserService, private nav:NavController) { }

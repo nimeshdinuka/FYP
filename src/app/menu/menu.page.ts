@@ -33,7 +33,9 @@ export class MenuPage implements OnInit {
 
   initializeItems(){
     this.auth.getFoodItems().subscribe(food => {
+      console.log(food);
       for(let i in food){
+        if(food != "error"){
           var foodObj = {
             foodid:food[i][0],
             foodname:food[i][2],
@@ -45,6 +47,10 @@ export class MenuPage implements OnInit {
           this.items.push(foodObj);
           this.products.push(foodObj);
           console.log(this.items);
+        }else{
+          console.log("No food items exist in this shop");
+        }
+         
       }
      },
      error => {

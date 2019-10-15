@@ -16,13 +16,14 @@ export class LoginPage implements OnInit {
   username;
   sessionUser:string;
   savedUser;
+  loggedinUser:string;
   
   constructor(private storage: Storage,private alertCtrl: AlertController, private auth: UserService, private nav: NavController ,public toastController: ToastController) {
 
     storage.get(this.sessionUser).then((val) => {
       console.log('Logged in User : ', val);
       if(val != null){
-        this.sessionPass();
+        this.sessionPass(val);
       }
       
     });
@@ -40,8 +41,9 @@ export class LoginPage implements OnInit {
     console.log(this.auth.getUser());
   }
 
-  public sessionPass(){
-    this.nav.navigateForward('restaurants');
+  public sessionPass(val){
+    this.getUserType(val);
+    console.log(val);
   }
 
   public login() {
@@ -52,18 +54,19 @@ export class LoginPage implements OnInit {
           if(success[0][7] == 'customer'){
             this.presentToast('Login Successful');
             this.auth.setUser(success[0][2]);
-            this.storage.set(this.sessionUser, success[0][3]);
+            this.storage.set(this.sessionUser, success[0][2]);
+            
             this.nav.navigateRoot('restaurants');
             
           }else if(success[0][7] == 'manager'){
             this.presentToast('Login Successful');
             this.auth.setShop(success[0][8]);
             this.auth.setUser(success[0][2]);
-            this.storage.set(this.sessionUser, success[0][3]);
+            this.storage.set(this.sessionUser, success[0][2]);
             this.nav.navigateRoot('manager');
           }else if(success[0][7] == 'admin'){
             this.presentToast('Login Successful');
-            this.storage.set(this.sessionUser, success[0][3]);
+            this.storage.set(this.sessionUser, success[0][2]);
             this.nav.navigateRoot('admin');
           }
           // this.loginSuccess = true;
@@ -99,6 +102,33 @@ export class LoginPage implements OnInit {
   //   });
   //   await alert.present();
   // }
+
+  public getUserType(val) {
+      this.auth.getUserType(val).subscribe(success => {
+        console.log(success);
+        if (success !== 'error') {
+          console.log(success);
+          if(success[0][7] == 'customer'){
+            this.nav.navigateRoot('restaurants');
+            this.auth.setUser(success[0][2]);
+          }else if(success[0][7] == 'manager'){
+            this.nav.navigateRoot('manager');
+            this.auth.setUser(success[0][2]);
+            this.auth.setShop(success[0][8]);
+          }else if(success[0][7] == 'admin'){
+            this.nav.navigateRoot('admin');
+            this.auth.setUser(success[0][2]);
+          }
+        } else {
+          this.presentToast('Invalid Credentials');
+        }
+      },
+        error => {
+          this.presentToast('Error');
+        });
+   
+  }
+
 
   loadRestaurant(){
     this.auth.setUser(this.username);

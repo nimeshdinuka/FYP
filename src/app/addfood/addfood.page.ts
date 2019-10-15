@@ -10,7 +10,7 @@ import { UserService } from '../api/user.service';
 export class AddfoodPage implements OnInit {
 
   createSuccess = false;
-  addFoodCredentials = { itemname: '', description: '', price: '',shop: 0 };
+  addFoodCredentials = { itemname: '', description: '', price: '',shop: 0,foodpic:'https://chinesenewyear.imgix.net/assets/images/food/chinese-new-year-food-feast.jpg?q=50&w=1920&h=1080&fit=crop&auto=format' };
   
   constructor(private alertCtrl: AlertController, private auth: UserService, private nav:NavController) { 
     console.log(this.auth.getShop());

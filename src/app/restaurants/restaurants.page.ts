@@ -13,6 +13,7 @@ export class RestaurantsPage implements OnInit{
 
   userName;
   items= [];
+  products=[];
   sessionUser:string;
   constructor(private storage:Storage,private alertCtrl: AlertController, private auth: UserService, private nav: NavController,public loadingController: LoadingController) { 
     this.userName = this.auth.getUser();
@@ -33,6 +34,7 @@ export class RestaurantsPage implements OnInit{
           shoppic:shop[i][3]
         }
         this.items.push(itemObj);
+        this.products.push(itemObj);
         console.log(this.items);
       }
      },
@@ -49,9 +51,32 @@ export class RestaurantsPage implements OnInit{
 
   logout(){
     this.storage.set(this.sessionUser,null);
-    this.auth.setUser(null);
+    this.auth.setUser('');
     console.log(this.storage.get(this.sessionUser));
-    this.nav.navigateForward('login');
+    this.nav.navigateRoot('home');
+  }
+
+  initializeSearch(){
+    this.items=this.products;
+  }
+
+  getProductDetails(ev: any) {
+    // Reset items back to all of the items
+    this.initializeSearch();
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        if(item.shopname.toLowerCase().indexOf(val.toLowerCase()) > -1){
+          console.log(this.items);
+          return item;
+        };
+      });
+    }
+    return false;
   }
 }
 

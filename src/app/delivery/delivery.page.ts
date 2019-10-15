@@ -3,6 +3,7 @@ import { AlertController,NavController } from '@ionic/angular';
 import { UserService } from '../api/user.service';
 import { LoadingController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-delivery',
@@ -67,6 +68,7 @@ export class DeliveryPage implements OnInit {
           } else {
             console.log(this.deliveryData.cart);
           }
+
       } else {
         this.showPopup('Error', 'Problem placing Order');
       }
@@ -108,6 +110,9 @@ export class DeliveryPage implements OnInit {
           handler: data => {
             if (this.createSuccess) {
               this.nav.navigateForward('/restaurants');
+              this.auth.setCart([]);
+              console.log(this.auth.getCart());
+              
 
             }
           }

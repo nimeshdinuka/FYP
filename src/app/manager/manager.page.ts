@@ -34,7 +34,7 @@ export class ManagerPage implements OnInit {
   }
 
   loadAddFood(){
-    this.nav.navigateForward('test3');
+    this.nav.navigateForward('addfood');
   }
 
   loadAddCashier(){
