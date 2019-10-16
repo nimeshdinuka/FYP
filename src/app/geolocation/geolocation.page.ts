@@ -53,7 +53,7 @@ export class GeolocationPage implements OnInit ,AfterContentInit {
       const contentString = '<div id="content">' +
           '<div id="siteNotice">' +
           '</div>' +
-          '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+          '<h1 id="firstHeading" class="firstHeading">Kzon</h1>' +
           '<div id="bodyContent">' +
           '<img src="assets/icon/kzon.jpg" width="200">' +
           '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +

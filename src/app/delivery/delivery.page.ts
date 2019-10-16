@@ -51,6 +51,8 @@ export class DeliveryPage implements OnInit {
         console.log(this.deliveryData.lastid);
         console.log(this.deliveryData.cart);
 
+        this.delivery();
+
 
         if (this.deliveryData.workingmobile !== '' && this.deliveryData.address !== '' && this.deliveryData.location !== '') {
           this.auth.placeOrderDetails(this.deliveryData).subscribe(data => {
@@ -69,6 +71,8 @@ export class DeliveryPage implements OnInit {
             console.log(this.deliveryData.cart);
           }
 
+
+          
       } else {
         this.showPopup('Error', 'Problem placing Order');
       }
@@ -120,6 +124,20 @@ export class DeliveryPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  public delivery() {
+    this.auth.delivery(this.deliveryData).subscribe(success => {
+      if (success) {
+        this.createSuccess = true;
+        console.log("delivery data added")
+      } else {
+        console.log("problem detected")
+      }
+    },
+      error => {
+        console.log('Error', error);
+      });
   }
 
 }

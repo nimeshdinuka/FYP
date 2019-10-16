@@ -448,6 +448,23 @@ def getUserType():
         else:
                 return jsonify('error')
 
+@app.route('/delivery',methods=['GET','POST'])
+@cross_origin(supports_credentials=True)
+def delivery():
+    if request.method == 'POST':
+        itemDetails = request.get_json(silent=True)
+        mobile = itemDetails['mobile']
+        address = itemDetails['address']
+        closeloc = itemDetails['closeloc']
+        uid = itemDetails['uid']
+        shop = itemDetails['shopid']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO deliverydata(workmobile,address,closelocation,userid,shopid) VALUES(%s,%s,%s,%s,%s)",(mobile,address,closeloc,uid,shop))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify("success")
+
 #flask run --host=192.168.8.100 port=5000
 
 if __name__ == '__main__':

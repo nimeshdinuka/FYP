@@ -22,3 +22,22 @@ ion-toolbar{
       font-weight: bold;
   }
   
+
+  ion-card{
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    padding-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 10px rgba(0,0,0,0.23);
+    border-top: 3px solid blue;
+    border-bottom: 3px solid darkgray;
+    max-height: 400px;
+  }
+
+  ion-card-content{
+    padding: 0;
+  }
+
+  ion-card-header{
+    padding: 10px;
+  }

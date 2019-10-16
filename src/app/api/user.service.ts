@@ -92,7 +92,7 @@ export class UserService {
 
   // register
   public register(credentials) {
-    return this.http.post('http://192.168.8.102:5000/cusRegister',
+    return this.http.post('http://192.168.43.165:5000/cusRegister',
       (
         {
           'firstname': credentials.firstname,
@@ -107,7 +107,7 @@ export class UserService {
   // login
   public login(credentials) {
     this.setUser(credentials.username);
-    return this.http.post('http://192.168.8.102:5000/login',
+    return this.http.post('http://192.168.43.165:5000/login',
       (
         {
           'username': credentials.username,
@@ -117,7 +117,7 @@ export class UserService {
 
   // manager register
   public addManager(credentials) {
-    return this.http.post('http://192.168.8.102:5000/addManager',
+    return this.http.post('http://192.168.43.165:5000/addManager',
       (
         {
           'firstname': credentials.firstname,
@@ -133,7 +133,7 @@ export class UserService {
   // add cashier
   public addCashier(credentials) {
     console.log(this.shopId);
-    return this.http.post('http://192.168.8.102:5000/addCashier',
+    return this.http.post('http://192.168.43.165:5000/addCashier',
       (
         {
           'firstname': credentials.firstname,
@@ -148,7 +148,7 @@ export class UserService {
 
   // get fooditems
   public getFoodItems() {
-    return this.http.post('http://192.168.8.102:5000/getFoodItems',
+    return this.http.post('http://192.168.43.165:5000/getFoodItems',
     (
       {
         'shopid': this.shopId
@@ -157,7 +157,7 @@ export class UserService {
 
   // add restaurant
   public addRestaurant(credentials) {
-    return this.http.post('http://192.168.8.102:5000/addRestaurant',
+    return this.http.post('http://192.168.43.165:5000/addRestaurant',
       (
         {
           'shopname': credentials.shopname,
@@ -168,13 +168,13 @@ export class UserService {
 
   // get shops
   public getShops() {
-    return this.http.get('http://192.168.8.102:5000/getShops',
+    return this.http.get('http://192.168.43.165:5000/getShops',
       { headers: this.headers }).pipe(map(res => res));
   }
 
   // get managers
   public getManagers() {
-    return this.http.post('http://192.168.8.102:5000/getManagers',
+    return this.http.post('http://192.168.43.165:5000/getManagers',
     (
       {
         'username': this.userName
@@ -185,7 +185,7 @@ export class UserService {
   // view cashiers
   public viewCashiers() {
     console.log(this.shopId);
-    return this.http.post('http://192.168.8.102:5000/viewCashiers',
+    return this.http.post('http://192.168.43.165:5000/viewCashiers',
       (
         {
           'shopid': this.shopId
@@ -195,13 +195,13 @@ export class UserService {
 
   // view managers
   public viewManagers() {
-    return this.http.get('http://192.168.8.102:5000/viewManagers',
+    return this.http.get('http://192.168.43.165:5000/viewManagers',
        { headers: this.headers }).pipe(map(res => res));
   }
 
   // add fooditems
   public addFood(credentials) {
-    return this.http.post('http://192.168.8.102:5000/addFood',
+    return this.http.post('http://192.168.43.165:5000/addFood',
       (
         {
         'shopid':credentials.shop,
@@ -214,7 +214,7 @@ export class UserService {
 
   // add offer
   public addOffer(credentials) {
-    return this.http.post('http://192.168.8.102:5000/addOffer',
+    return this.http.post('http://192.168.43.165:5000/addOffer',
       (
         {
           'title': credentials.title,
@@ -226,7 +226,7 @@ export class UserService {
   // view food
   public viewFoodItems() {
     console.log(this.shopId);
-    return this.http.post('http://192.168.8.102:5000/viewFoodItems',
+    return this.http.post('http://192.168.43.165:5000/viewFoodItems',
       (
         {
           'shopid': this.shopId
@@ -237,7 +237,7 @@ export class UserService {
   // view offers
   public viewOffers() {
     console.log(this.shopId);
-    return this.http.post('http://192.168.8.102:5000/viewOffers',
+    return this.http.post('http://192.168.43.165:5000/viewOffers',
       (
         {
           'shopid': this.shopId
@@ -247,7 +247,7 @@ export class UserService {
 
   //add shops
   public addShops(credentials) {
-    return this.http.post('http://192.168.8.102:5000/addShops',
+    return this.http.post('http://192.168.43.165:5000/addShops',
       (
         {
           'shopname': credentials.shopname,
@@ -258,13 +258,13 @@ export class UserService {
   //view shops
   public viewShops() {
     console.log(this.shopId);
-    return this.http.get('http://192.168.8.102:5000/viewShops',
+    return this.http.get('http://192.168.43.165:5000/viewShops',
        { headers: this.headers }).pipe(map(res => res));
   }
 
  // add order
   public placeOrder(credentials) {
-    return this.http.post('http://192.168.8.102:5000/placeOrder',
+    return this.http.post('http://192.168.43.165:5000/placeOrder',
       (
         {
           'userid': credentials.userid,
@@ -279,7 +279,7 @@ export class UserService {
     console.log(credentials.cart);
     console.log(credentials.lastid);
     console.log(credentials.qty);
-    return this.http.post('http://192.168.8.102:5000/placeOrderDetails',
+    return this.http.post('http://192.168.43.165:5000/placeOrderDetails',
       (
         {
           'orderid': credentials.lastid,
@@ -292,7 +292,7 @@ export class UserService {
 
   //add feedback
   public submitFeedback(credentials) {
-    return this.http.post('http://192.168.8.102:5000/submitFeedback',
+    return this.http.post('http://192.168.43.165:5000/submitFeedback',
       (
         {
           'category': credentials.category,
@@ -302,7 +302,7 @@ export class UserService {
   }
 
   public removeOffer(credentials) {
-    return this.http.post('http://192.168.8.102:5000/removeOffer',
+    return this.http.post('http://192.168.43.165:5000/removeOffer',
       (
         {
           'offerid': credentials.offerid
@@ -311,7 +311,7 @@ export class UserService {
   }
 
   public removeFood(credentials) {
-    return this.http.post('http://192.168.8.102:5000/removeFood',
+    return this.http.post('http://192.168.43.165:5000/removeFood',
       (
         {
           'foodid': credentials.foodid
@@ -320,7 +320,7 @@ export class UserService {
   }
 
   public removeShops(credentials) {
-    return this.http.post('http://192.168.8.102:5000/removeShops',
+    return this.http.post('http://192.168.43.165:5000/removeShops',
       (
         {
           'shopid': credentials.shopid
@@ -329,7 +329,7 @@ export class UserService {
   }
 
   public resetPassword(credentials) {
-    return this.http.post('http://192.168.8.102:5000/resetPassword',
+    return this.http.post('http://192.168.43.165:5000/resetPassword',
       (
         {
           'username': credentials.username,
@@ -340,10 +340,23 @@ export class UserService {
 
 
   public getUserType(val) {
-    return this.http.post('http://192.168.8.102:5000/getUserType',
+    return this.http.post('http://192.168.43.165:5000/getUserType',
       (
         {
           'username': val
+        }
+      ), { headers: this.headers }).pipe(map(res => res));
+  }
+
+  public delivery(credentials) {
+    return this.http.post('http://192.168.43.165:5000/delivery',
+      (
+        {
+          'mobile': credentials.workingmobile,
+          'address': credentials.address,
+          'closeloc': credentials.location,
+          'uid': credentials.userid,
+          'shopid':credentials.shopid
         }
       ), { headers: this.headers }).pipe(map(res => res));
   }
