@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,flash,session,jsonify,json
 from flask_mysqldb import MySQL
 from flask_cors import CORS,cross_origin
+import model
 #from flask import jsonify
 
 app = Flask(__name__)
@@ -24,10 +25,11 @@ def cusRegister():
         mobno = userDetails['mobileno']
         uname = userDetails['username']
         pswd = userDetails['password']
+        gender = userDetails['gender']
         utype = "customer"
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO user(firstname,lastname,email,mobileno,username,password,usertype) VALUES(%s,%s,%s,%s,%s,%s,%s)",(fname,lname,email,mobno,uname,pswd,utype))
+        cur.execute("INSERT INTO user(firstname,lastname,email,mobileno,username,password,gender,usertype) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",(fname,lname,email,mobno,uname,pswd,gender,utype))
         mysql.connection.commit()
         cur.close()
         return jsonify("success")
@@ -48,9 +50,9 @@ def login():
         cur.close()
         
         if(len(data)!=0):
-                return jsonify(data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
         
         
 
@@ -139,10 +141,10 @@ def getFoodItems():
         cur.close()
         
         if(len(data)!=0):
-                print (data)
-                return jsonify(data)
+            print (data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 @app.route('/getShops',methods=['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -156,9 +158,9 @@ def getShops():
         cur.close()
         
         if(len(data)!=0):
-                return jsonify(data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 @app.route('/getManagers',methods=['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -174,10 +176,10 @@ def getManagers():
         cur.close()
         
         if(len(data)!=0):
-                print (data)
-                return jsonify(data)
+            print (data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 @app.route('/viewCashiers',methods=['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -193,10 +195,10 @@ def viewCashiers():
         cur.close()
         
         if(len(data)!=0):
-                #print (data)
-                return jsonify(data)
+            #print (data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 
 @app.route('/viewManagers',methods=['GET','POST'])
@@ -211,10 +213,10 @@ def viewManagers():
         cur.close()
         
         if(len(data)!=0):
-                print (data)
-                return jsonify(data)
+            print (data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 @app.route('/addFood',methods=['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -226,11 +228,15 @@ def addFood():
         description = userDetails['description']
         price = userDetails['price']
         picture = userDetails['picture']
-        
+
+        gender = model.decisionTree(itemname)
+         
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO fooditem(shopid,itemname,description,price,itempic) VALUES(%s,%s,%s,%s,%s)",(shopid,itemname,description,price,picture))
+        cur.execute("INSERT INTO fooditem(shopid,itemname,description,price,itempic,gender) VALUES(%s,%s,%s,%s,%s,%s)",(shopid,itemname,description,price,picture,gender))
         mysql.connection.commit()
         cur.close()
+        
+        print("------------"+gender)
         return jsonify("success")
 
 @app.route('/addOffer',methods=['GET','POST'])
@@ -262,10 +268,10 @@ def viewFoodItems():
         cur.close()
         
         if(len(data)!=0):
-                print (data)
-                return jsonify(data)
+            print (data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 @app.route('/viewOffers',methods=['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -281,10 +287,10 @@ def viewOffers():
         cur.close()
         
         if(len(data)!=0):
-                print (data)
-                return jsonify(data)
+            print (data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 @app.route('/addShops',methods=['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -312,10 +318,10 @@ def viewShops():
         cur.close()
         
         if(len(data)!=0):
-                print (data)
-                return jsonify(data)
+            print (data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 @app.route('/placeOrder',methods=['POST'])
 @cross_origin(supports_credentials=True)
@@ -443,10 +449,10 @@ def getUserType():
         cur.close()
         
         if(len(data)!=0):
-                #print (data)
-                return jsonify(data)
+            #print (data)
+            return jsonify(data)
         else:
-                return jsonify('error')
+            return jsonify('error')
 
 @app.route('/delivery',methods=['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -464,6 +470,25 @@ def delivery():
         mysql.connection.commit()
         cur.close()
         return jsonify("success")
+
+@app.route('/getSuggestItems',methods=['GET','POST'])
+@cross_origin(supports_credentials=True)
+def getSuggestItems():
+    if request.method == 'POST':
+        userDetails = request.get_json(silent=True)
+        gender = userDetails['gender']
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM fooditem where gender = %s",[gender])
+        data = cur.fetchall()
+        mysql.connection.commit()
+        cur.close()
+        
+        if(len(data)!=0):
+            print (data)
+            return jsonify(data)
+        else:
+            return jsonify('error')
 
 #flask run --host=192.168.8.100 port=5000
 
