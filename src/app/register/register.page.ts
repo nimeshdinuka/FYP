@@ -11,7 +11,8 @@ export class RegisterPage implements OnInit {
 
   userName ="Nimesh";
   createSuccess = false;
-  registerCredentials = { firstname: '', lastname: '', email: '', mobileno: '', username: '' , password: '' };
+  registerCredentials = { firstname: '', lastname: '', email: '', mobileno: '', username: '' , password: '',gender:'' };
+  genderData = ['male','female'];
 
   constructor(private alertCtrl: AlertController, private auth: UserService, private nav: NavController) { }
 

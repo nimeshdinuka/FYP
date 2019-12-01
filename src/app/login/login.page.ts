@@ -78,7 +78,7 @@ export class LoginPage implements OnInit {
             console.log(data);
             this.auth.setGender(success[0][9]);
 
-            this.nav.navigateRoot('restaurants');
+            this.nav.navigateRoot('home');
           }else if(success[0][7] == 'manager'){
             this.presentToast('Login Successful');
             this.auth.setShop(success[0][8]);

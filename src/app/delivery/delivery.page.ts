@@ -3,7 +3,7 @@ import { AlertController,NavController } from '@ionic/angular';
 import { UserService } from '../api/user.service';
 import { LoadingController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
-import { empty } from 'rxjs';
+
 
 @Component({
   selector: 'app-delivery',
@@ -17,13 +17,14 @@ export class DeliveryPage implements OnInit {
   cart = [];
   cartFoods=[];
   foodqty =[];
-  deliveryData = { workingmobile: '', address: '', location: '',shopid:'' ,userid:'', cart:this.cartFoods,lastid:0,qty:this.foodqty};
+  deliveryData = { workingmobile: '', address: '', location: '',shopid:'' ,userid:'', cart:this.cartFoods, lastid:0, qty:this.foodqty, totalprice:0};
   userid;
   
 
   constructor(public nav:NavController, public auth: UserService,private alertCtrl: AlertController) {
     this.userid = this.auth.getUser();
     console.log(this.userid);
+    console.log(this.auth.getTotalprice());
    }
 
 
@@ -34,6 +35,7 @@ export class DeliveryPage implements OnInit {
     this.deliveryData.cart = this.cartFoods;
     this.deliveryData.qty = this.foodqty;
     this.deliveryData.userid = this.userid;
+    this.deliveryData.totalprice = this.auth.getTotalprice();
     console.log(this.deliveryData);
   }
 
@@ -52,6 +54,7 @@ export class DeliveryPage implements OnInit {
         console.log(this.deliveryData.cart);
 
         this.delivery();
+        this.addCartDetails();
 
 
         if (this.deliveryData.workingmobile !== '' && this.deliveryData.address !== '' && this.deliveryData.location !== '') {
@@ -70,8 +73,6 @@ export class DeliveryPage implements OnInit {
           } else {
             console.log(this.deliveryData.cart);
           }
-
-
           
       } else {
         this.showPopup('Error', 'Problem placing Order');
@@ -98,6 +99,8 @@ export class DeliveryPage implements OnInit {
         console.log(this.foodqty);
       }
   }
+
+
 
   backToCart(){
     this.nav.navigateBack('/cart');
@@ -131,6 +134,21 @@ export class DeliveryPage implements OnInit {
       if (success) {
         this.createSuccess = true;
         console.log("delivery data added")
+      } else {
+        console.log("problem detected")
+      }
+    },
+      error => {
+        console.log('Error', error);
+      });
+  }
+
+  
+  public addCartDetails() {
+    this.auth.addCartDetails(this.deliveryData).subscribe(success => {
+      if (success) {
+        this.createSuccess = true;
+        console.log("Cart data added")
       } else {
         console.log("problem detected")
       }

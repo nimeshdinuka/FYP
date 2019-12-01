@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController,NavController } from '@ionic/angular';
 import { UserService } from '../api/user.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-manager',
   templateUrl: './manager.page.html',
   styleUrls: ['./manager.page.scss'],
 })
+
 export class ManagerPage implements OnInit {
 
   items = [];
   shopId;
+  sessionUser:string;
 
-  constructor(private alertCtrl: AlertController, private auth: UserService, private nav: NavController) { 
+  constructor(private storage: Storage, private alertCtrl: AlertController, private auth: UserService, private nav: NavController) { 
 
     this.shopId = this.auth.getShop();
     console.log("on back---"+this.shopId);
@@ -56,4 +59,12 @@ export class ManagerPage implements OnInit {
   loadOffer(){
     this.nav.navigateForward('viewoffers');
   }
+
+  logout(){
+    this.storage.set("sessionUser",null);
+    this.auth.setUser('');
+    console.log(this.storage.get("sessionUser"));
+    this.nav.navigateRoot('login');
+  }
+
 }

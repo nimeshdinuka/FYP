@@ -27,6 +27,17 @@
     <ion-col class="col">
       <div class="logindiv">
         <ion-item>
+          <ion-label position="stacked">Category*</ion-label>
+          <ion-input name="category" placeholder="Enter the Category" [(ngModel)]='addFoodCredentials.category'>
+          </ion-input>
+        </ion-item>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="col">
+      <div class="logindiv">
+        <ion-item>
           <ion-label position="stacked">Description*</ion-label>
           <ion-input name="description" placeholder="Enter the Description" [(ngModel)]='addFoodCredentials.description'>
           </ion-input>

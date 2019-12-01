@@ -228,11 +228,12 @@ def addFood():
         description = userDetails['description']
         price = userDetails['price']
         picture = userDetails['picture']
+        category = userDetails['category']
 
         gender = model.decisionTree(itemname)
          
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO fooditem(shopid,itemname,description,price,itempic,gender) VALUES(%s,%s,%s,%s,%s,%s)",(shopid,itemname,description,price,picture,gender))
+        cur.execute("INSERT INTO fooditem(shopid,itemname,description,price,itempic,gender,category) VALUES(%s,%s,%s,%s,%s,%s,%s)",(shopid,itemname,description,price,picture,gender,category))
         mysql.connection.commit()
         cur.close()
         
@@ -247,9 +248,10 @@ def addOffer():
         offertitle = userDetails['title']
         offerdesc = userDetails['description']
         shop = userDetails['shopid']
+        offerpic = userDetails['picture']
         
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO offers(title,description,shopid) VALUES(%s,%s,%s)",(offertitle,offerdesc,shop))
+        cur.execute("INSERT INTO offers(title,description,offerpic,shopid) VALUES(%s,%s,%s,%s)",(offertitle,offerdesc,offerpic,shop))
         mysql.connection.commit()
         cur.close()
         return jsonify("success")
@@ -299,9 +301,10 @@ def addShops():
         userDetails = request.get_json(silent=True)
         shopname = userDetails['shopname']
         description = userDetails['description']
+        shoppic = userDetails['shoppic']
         
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO shops(shopname,description) VALUES(%s,%s)",(shopname,description))
+        cur.execute("INSERT INTO shops(shopname,description,shoppic) VALUES(%s,%s,%s)",(shopname,description,shoppic))
         mysql.connection.commit()
         cur.close()
         return jsonify("success")
@@ -490,7 +493,40 @@ def getSuggestItems():
         else:
             return jsonify('error')
 
+
+@app.route('/addCartDetails',methods=['GET','POST'])
+@cross_origin(supports_credentials=True)
+def addCartDetails():
+    if request.method == 'POST':
+        itemDetails = request.get_json(silent=True)
+        orderid = itemDetails['orderid']
+        totalprice = itemDetails['totalprice']
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO cart(orderid,totalprice) VALUES(%s,%s)",(orderid,totalprice))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify("success")
 #flask run --host=192.168.8.100 port=5000
+
+@app.route('/getTables',methods=['GET','POST'])
+@cross_origin(supports_credentials=True)
+def getTables():
+    if request.method == 'POST':
+        userDetails = request.get_json(silent=True)
+        shopid = userDetails['shopid']
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM tables where shopid = %s and availability = 'available'",[shopid])
+        data = cur.fetchall()
+        mysql.connection.commit()
+        cur.close()
+        
+        if(len(data)!=0):
+            print (data)
+            return jsonify(data)
+        else:
+            return jsonify('error')
 
 if __name__ == '__main__':
     app.run()

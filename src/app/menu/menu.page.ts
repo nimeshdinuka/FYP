@@ -14,6 +14,8 @@ export class MenuPage implements OnInit {
   products=[];
   cart:any = [];
   createSuccess = false;
+  foodCategory:any = [];
+  unqfoodCategory:any = [];
 
   sliderConfig = {
     slidesPerView : 1.4,
@@ -24,6 +26,7 @@ export class MenuPage implements OnInit {
   constructor(private alertCtrl: AlertController, private auth: UserService, private nav:NavController,public loadingController: LoadingController) { 
     
     this.initializeItems();
+
     this.cart = this.auth.getCart();
     console.log(this.auth.getcurrentShopId());
   }
@@ -42,11 +45,16 @@ export class MenuPage implements OnInit {
             description:food[i][3],
             foodprice:food[i][4],
             foodpic:food[i][5],
-            foodshop:food[i][1]
+            foodshop:food[i][1],
+            foodcat:food[i][7]
           }
+          this.foodCategory.push(food[i][7]);
+
+          this.unqfoodCategory = [...new Set(this.foodCategory)];
           this.items.push(foodObj);
           this.products.push(foodObj);
           console.log(this.items);
+          console.log(this.unqfoodCategory);
         }else{
           console.log("No food items exist in this shop");
         }
@@ -56,6 +64,7 @@ export class MenuPage implements OnInit {
      error => {
        console.log(error);
      });
+     
   }
 
   loadRestaurants(){

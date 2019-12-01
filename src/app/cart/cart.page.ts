@@ -125,6 +125,7 @@ export class CartPage implements OnInit {
           handler: () => {
             this.nav.navigateForward('dinein');
             this.auth.setSelectedCart(this.selectedItems);
+            this.auth.setTotalprice(this.total);
           }
         }, {
           text: 'Delivery',
@@ -132,6 +133,7 @@ export class CartPage implements OnInit {
           handler: () => {
             this.nav.navigateForward('delivery');
             this.auth.setSelectedCart(this.selectedItems);
+            this.auth.setTotalprice(this.total);
           }
         }, {
           text: 'Cancel',

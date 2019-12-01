@@ -16,8 +16,28 @@
 <ion-content>
     <ion-searchbar (ionInput)="getProductDetails($event)"></ion-searchbar>
     <ion-slides [options]="sliderConfig">
+        <ion-slide *ngFor="let item of items">
+          <ion-card (click)="addToCart(item)">
+            <ion-card-header>
+              <ion-card-title>{{item.foodname}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <img src="{{item.foodpic}}" />
+              <p>Rs: {{item.foodprice}}</p>
+              <p>{{item.description}}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+  <ion-grid>
+    <ion-list *ngFor="let foodcateg of unqfoodCategory">
+    <div class="ion-text-capitalize foodcatnames">
+    <ion-label>{{foodcateg}}</ion-label>
+    </div>
+    <div>
+    <ion-slides [options]="sliderConfig">
       <ion-slide *ngFor="let item of items">
-        <ion-card (click)="addToCart(item)">
+        <ion-card (click)="addToCart(item)" *ngIf="foodcateg == item.foodcat">
           <ion-card-header>
             <ion-card-title>{{item.foodname}}</ion-card-title>
           </ion-card-header>
@@ -29,4 +49,7 @@
         </ion-card>
       </ion-slide>
     </ion-slides>
+    </div>
+  </ion-list>
+</ion-grid>
 </ion-content>

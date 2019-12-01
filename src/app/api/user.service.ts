@@ -7,7 +7,6 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root'
 })
 
-
 export class UserService {
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -15,13 +14,24 @@ export class UserService {
   });
 
   cart = [];
-  userName: string;
-  shopId: number;
+  userName:string;
+  shopId:number;
   selectedCartitems = [];
   currentShopId:number;
   gender:string = "default";
+  totalPrice:number;
 
   constructor(public http: HttpClient,public storage: Storage) { }
+
+
+  public getTotalprice(){
+    return this.totalPrice;
+  }
+
+  public setTotalprice(totalPrice){
+    this.totalPrice = totalPrice;
+  }
+
 
   public setSelectedCart(selectedCartitems){
     this.selectedCartitems = selectedCartitems;
@@ -109,7 +119,8 @@ export class UserService {
           'email': credentials.email,
           'mobileno': credentials.mobileno,
           'username': credentials.username,
-          'password': credentials.password
+          'password': credentials.password,
+          'gender': credentials.gender
         }), { headers: this.headers }).pipe(map(res => res));
   }
 
@@ -217,7 +228,8 @@ export class UserService {
         'itemname': credentials.itemname,
         'description': credentials.description,
         'price': credentials.price,
-        'picture': credentials.foodpic
+        'picture': credentials.foodpic,
+        'category': credentials.category
         }), { headers: this.headers }).pipe(map(res => res));
   }
 
@@ -228,7 +240,8 @@ export class UserService {
         {
           'title': credentials.title,
           'description': credentials.description,
-          'shopid': credentials.shop
+          'shopid': credentials.shop,
+          'picture':credentials.offerpic
         }), { headers: this.headers }).pipe(map(res => res));
   }
 
@@ -260,7 +273,8 @@ export class UserService {
       (
         {
           'shopname': credentials.shopname,
-          'description': credentials.description
+          'description': credentials.description,
+          'shoppic': credentials.shoppic
         }), { headers: this.headers }).pipe(map(res => res));
   }
   
@@ -376,6 +390,26 @@ export class UserService {
       (
         {
           'gender': this.gender
+        }), { headers: this.headers }).pipe(map(res => res));
+    }
+
+    public addCartDetails(credentials) {
+    return this.http.post('http://localhost:5000/addCartDetails',
+      (
+        {
+          'orderid': credentials.lastid,
+          'totalprice': credentials.totalprice
+          
+        }
+      ), { headers: this.headers }).pipe(map(res => res));
+    }
+
+    public getTables(shopid) {
+      console.log(shopid);
+      return this.http.post('http://127.0.0.1:5000/getTables',
+      (
+        {
+          'shopid': shopid
         }), { headers: this.headers }).pipe(map(res => res));
     }
 }

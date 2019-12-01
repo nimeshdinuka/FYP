@@ -6,11 +6,24 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-menu-button color="light"></ion-menu-button>
+      <ion-menu-button color="light">
+      </ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+                <ion-label>Table</ion-label>
+                <ion-select placeholder="Select One" [(ngModel)]='dineindata.selectedTable'>
+                  <ion-select-option *ngFor="let item of tableData" value="{{item.tablenumber}}">{{item.tablenumber}}</ion-select-option>
+                </ion-select>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
+      <ion-button color="main" class="check" (click)="placeOrder()">PLACE ORDER</ion-button>
 </ion-content>

@@ -33,6 +33,16 @@
           </ion-col>
       </ion-row>
       <ion-row>
+        <ion-col>
+          <ion-list>
+              <ion-label class="gendername">Gender*</ion-label>
+              <ion-select placeholder="Select Gender" [(ngModel)]='registerCredentials.gender' >
+                <ion-select-option *ngFor="let item of genderData" value="{{item}}">{{item}}</ion-select-option>
+              </ion-select>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
           <ion-col class="col">
               <div class="logindiv">
                   <ion-item>
@@ -76,7 +86,7 @@
       <ion-row class="ezfoodlog">
           <ion-col class="col">
               <div class="d-flex justify-content-center ">
-                  <ion-button color="success" (click)='register()'>
+                  <ion-button color="main" (click)='register()'>
                       <ion-icon slot="start" name="beer"></ion-icon>
                       Register with EzFood
                   </ion-button>

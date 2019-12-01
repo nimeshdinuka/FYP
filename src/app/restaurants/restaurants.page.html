@@ -1,27 +1,25 @@
 <ion-header>
   <ion-toolbar color="main">
     <ion-title>
-      <div> Restaurants</div>
+      <div>Restaurants</div>
     </ion-title>
     <ion-buttons slot="end">
         <ion-button (click)="logout()">
             <ion-icon name="log-out"></ion-icon>
-          </ion-button>
+        </ion-button>
       <ion-menu-button color="light"></ion-menu-button>
-      
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-searchbar (ionInput)="getProductDetails($event)" placeholder="Search Restaurant"></ion-searchbar>
   <ion-list *ngFor="let item of items">
-      <ion-card (click)="loadMenu(item.shopid)" >
+      <ion-card (click)="loadMenu(item.shopid)">
         <ion-card-header>
           <ion-card-title>{{item.shopname}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <img src="{{item.shoppic}}"/>
-          <!-- <p>{{item.description}}</p> -->
         </ion-card-content>
       </ion-card>
   </ion-list>

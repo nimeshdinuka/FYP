@@ -10,7 +10,7 @@ import { UserService } from '../api/user.service';
 export class AddofferPage implements OnInit {
 
   createSuccess = false;
-  addOfferCredentials = { title: '', description: '',shop: 0};
+  addOfferCredentials = { title: '', description: '',shop: 0,offerpic:'http://www.carepoint.lk/images/offer/offer1.jpg'};
 
   constructor(private alertCtrl: AlertController, private auth: UserService, private nav:NavController) { 
     console.log(this.auth.getShop());
